@@ -1,0 +1,56 @@
+package id.ac.ui.cs.advprog.eshop.controller;
+
+import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+public class ProductController {
+
+    @Autowired
+    private ProductService service;
+
+    @GetMapping
+    public String index() {
+        return "home";
+    }
+
+    /**
+     * Fungsi ini memanggil halaman create product dengan metode get
+     */
+    @GetMapping("/product/create")
+    public String createProductPage(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "createProduct";
+    }
+
+    /**
+     * Fungsi ini untuk membuat product dengan metode post
+     */
+    @PostMapping("/product/create")
+    public String createProductPost(@ModelAttribute Product product, Model model) {
+        try{
+            service.create(product);
+            return "redirect:list";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "createProduct";
+        }
+    }
+
+    /**
+     * Fungsi ini memanggil halaman list produk dengan metode get
+     */
+    @GetMapping("/product/list")
+    public String productListPage(Model model) {
+        List<Product> allProducts = service.findAll();
+        model.addAttribute("products", allProducts);
+        return "productList";
+    }
+}

@@ -53,6 +53,17 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+    @Override
+    public Product edit(Product product) {
+        Product editedProduct = findById(product.getProductId());
+        if (editedProduct == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+        validateProduct(product);
+        productRepository.edit(product);
+        return product;
+    }
+
     public void validateProduct(Product product) {
         List<String> errors = new ArrayList<>();
 

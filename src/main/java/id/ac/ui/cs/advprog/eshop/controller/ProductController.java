@@ -77,4 +77,25 @@ public class ProductController {
             return "editProduct";
         }
     }
+
+    /**
+     * Fungsi ini memanggil halaman delete product dengan metode get
+     */
+    @GetMapping("/product/delete/{productId}")
+    public String deleteProductPage(Model model, @PathVariable String productId) {
+        Product product = service.findById(productId);
+        model.addAttribute("productId", product.getProductId());
+        model.addAttribute("productName", product.getProductName());
+        model.addAttribute("productQuantity", product.getProductQuantity());
+        return "deleteProduct";
+    }
+
+    /**
+     * Fungsi ini untuk menghapus product dengan metode post
+     */
+    @PostMapping("/product/delete/{productId}")
+    public String deleteProductPost(@PathVariable String productId) {
+        service.deleteById(productId);
+        return "redirect:/product/list";
+    }
 }

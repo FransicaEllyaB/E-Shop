@@ -16,9 +16,11 @@ class ProductRepositoryTest {
 
     @InjectMocks
     ProductRepository productRepository;
+
     @BeforeEach
     void setUp() {
     }
+
     @Test
     void testCreateAndFind(){
         Product product = new Product();
@@ -34,11 +36,13 @@ class ProductRepositoryTest {
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
     }
+
     @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
     @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
@@ -61,6 +65,7 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
     @Test
     void testDelete() {
         Product product1 = new Product();
@@ -74,6 +79,7 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
     @Test
     void testFailedDelete() {
         Product product1 = new Product();
@@ -94,6 +100,7 @@ class ProductRepositoryTest {
         assertEquals(product1.getProductName(), savedProduct.getProductName());
         assertEquals(product1.getProductQuantity(), savedProduct.getProductQuantity());
     }
+
     @Test
     void testEdit() {
         Product product = new Product();
@@ -116,6 +123,7 @@ class ProductRepositoryTest {
         assertEquals("Laptop Pro", savedProduct.getProductName());
         assertEquals(20, savedProduct.getProductQuantity());
     }
+
     @Test
     void testFailedEdit() {
         Product product = new Product();

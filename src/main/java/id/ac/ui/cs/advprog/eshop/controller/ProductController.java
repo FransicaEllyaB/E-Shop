@@ -53,4 +53,28 @@ public class ProductController {
         model.addAttribute("products", allProducts);
         return "productList";
     }
+
+    /**
+     * Fungsi ini memanggil halaman edit product dengan metode get
+     */
+    @GetMapping("/product/edit/{productId}")
+    public String editProductPage(Model model, @PathVariable String productId) {
+        Product product = service.findById(productId);
+        model.addAttribute("product", product);
+        return "editProduct";
+    }
+
+    /**
+     * Fungsi ini untuk mengedit product dengan metode post
+     */
+    @PostMapping("/product/edit/{productId}")
+    public String editProductPost(@ModelAttribute Product product, Model model) {
+        try {
+            service.edit(product);
+            return "redirect:/product/list";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "editProduct";
+        }
+    }
 }

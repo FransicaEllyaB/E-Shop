@@ -4,6 +4,9 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +63,9 @@ public class ProductController {
     @GetMapping("/product/edit/{productId}")
     public String editProductPage(Model model, @PathVariable String productId) {
         Product product = service.findById(productId);
+        if (product == null) {
+            return "redirect:/product/list";
+        }
         model.addAttribute("product", product);
         return "editProduct";
     }
@@ -94,8 +100,13 @@ public class ProductController {
      * Fungsi ini untuk menghapus product dengan metode post
      */
     @PostMapping("/product/delete/{productId}")
-    public String deleteProductPost(@PathVariable String productId) {
-        service.deleteById(productId);
+    public String deleteProductPost(@PathVariable String productId, RedirectAttributes redirectAttributes) {
+        try {
+            service.deleteById(productId);
+            redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Product not found.");
+        }
         return "redirect:/product/list";
     }
 }

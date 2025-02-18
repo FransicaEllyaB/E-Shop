@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +96,10 @@ public class ProductControllerTest {
     @Test
     void testDeleteProductPost() {
         String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
-        String result = productController.deleteProductPost(productId);
+
+        RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
+        String result = productController.deleteProductPost(productId, redirectAttributes);
+
         assertEquals("redirect:/product/list", result);
         verify(productService, times(1)).deleteById(productId);
     }
@@ -105,8 +110,12 @@ public class ProductControllerTest {
         doThrow(new IllegalArgumentException("Product not found."))
                 .when(productService).deleteById(productId);
 
-        String result = productController.deleteProductPost(productId);
+        RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
+        String result = productController.deleteProductPost(productId, redirectAttributes);
+
         assertEquals("redirect:/product/list", result);
+        assertTrue(redirectAttributes.getFlashAttributes().containsKey("errorMessage"));
+        assertEquals("Product not found.", redirectAttributes.getFlashAttributes().get("errorMessage"));
     }
 
     @Test
@@ -124,9 +133,13 @@ public class ProductControllerTest {
     void testEditProductPageWhenProductNotFound() {
         String productId = "invalid-id";
         when(productService.findById(productId)).thenReturn(null);
+
         String result = productController.editProductPage(model, productId);
+
         assertEquals("redirect:/product/list", result);
     }
+
+
 
     @Test
     void testEditProductPost() {
@@ -152,5 +165,4 @@ public class ProductControllerTest {
         assertEquals("editProduct", result);
         verify(model, times(1)).addAttribute(eq("error"), anyString());
     }
-
 }

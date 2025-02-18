@@ -154,4 +154,63 @@ class ProductServiceImplTest {
 
         assertThrows(IllegalArgumentException.class, () -> productService.create(invalidProduct));
     }
+
+    @Test
+    void testValidateProductValidProduct() {
+        Product product = new Product();
+        product.setProductName("Valid Product");
+        product.setProductQuantity(10);
+
+        assertDoesNotThrow(() -> productService.validateProduct(product));
+    }
+
+    @Test
+    void testValidateProductEmptyName() {
+        Product product = new Product();
+        product.setProductName("");
+        product.setProductQuantity(10);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
+        assertTrue(exception.getMessage().contains("Product name cannot be empty"));
+    }
+
+    @Test
+    void testValidateProductNullName() {
+        Product product = new Product();
+        product.setProductName(null);
+        product.setProductQuantity(10);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
+        assertTrue(exception.getMessage().contains("Product name cannot be empty"));
+    }
+
+    @Test
+    void testValidateProductProductNameTooShort() {
+        Product product = new Product();
+        product.setProductName("AB");
+        product.setProductQuantity(10);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
+        assertTrue(exception.getMessage().contains("Product name must be between 3 and 50 characters"));
+    }
+
+    @Test
+    void testValidateProductProductNameTooLong() {
+        Product product = new Product();
+        product.setProductName("A".repeat(51));
+        product.setProductQuantity(10);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
+        assertTrue(exception.getMessage().contains("Product name must be between 3 and 50 characters"));
+    }
+
+    @Test
+    void testValidateProductNegativeQuantity() {
+        Product product = new Product();
+        product.setProductName("Valid Name");
+        product.setProductQuantity(0);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
+        assertTrue(exception.getMessage().contains("Quantity must be at least 1"));
+    }
 }

@@ -10,4 +10,9 @@ class EshopApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void applicationStartsSuccessfully() {
+        EshopApplication.main(new String[]{}); // Memanggil main method
+    }
+
 }

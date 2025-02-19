@@ -17,12 +17,12 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/advshop-app:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/advshop-app:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest
 
       - name: Redeploy on Koyeb
         run: |
-          curl -X POST "https://app.koyeb.com/v1/apps/YOUR_KOYEB_APP_ID/deploy" \
+          curl -X POST "https://app.koyeb.com/v1/apps/f65714c2-b771-44e7-8a40-56b0ba61c418/deploy" \
           -H "Authorization: Bearer ${{ secrets.KOYEB_API_TOKEN }}"
 
       - name: Done!

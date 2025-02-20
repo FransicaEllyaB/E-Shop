@@ -18,10 +18,10 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @GetMapping
-    public String index() {
-        return "home";
-    }
+//    @GetMapping
+//    public String index() {
+//        return "home";
+//    }
 
     /**
      * Fungsi ini memanggil halaman create product dengan metode get

@@ -3,7 +3,7 @@ name: Deploy to Koyeb
 on:
   push:
     branches:
-      - master
+      - "master"
 
 jobs:
   deploy:
@@ -17,8 +17,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/e-shop:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/e-shop:latest
 
       - name: Redeploy on Koyeb
         run: |
@@ -26,4 +26,4 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.KOYEB_API_TOKEN }}"
 
       - name: Done!
-        run: echo "Deployment to Koyeb completed successfully.
+        run: echo "Deployment to Koyeb completed successfully."

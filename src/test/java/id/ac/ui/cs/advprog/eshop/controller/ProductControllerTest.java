@@ -37,11 +37,11 @@ public class ProductControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testIndex() {
-        String result = productController.index();
-        assertEquals("home", result);
-    }
+//    @Test
+//    void testIndex() {
+//        String result = productController.index();
+//        assertEquals("home", result);
+//    }
 
     @Test
     void testCreateProductPage() {

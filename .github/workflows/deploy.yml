@@ -17,8 +17,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fransicaellyab/e-shop:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/e-shop:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/e-shop:latest
 
       - name: Redeploy on Koyeb
         run: |

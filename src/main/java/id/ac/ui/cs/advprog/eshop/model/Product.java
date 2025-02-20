@@ -27,19 +27,7 @@ public class Product {
         return productQuantity;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
     public void setProductQuantity(int productQuantity) {
-        if (productQuantity < 0) {
-            this.productQuantity = 0;
-        } else {
-            this.productQuantity = productQuantity;
-        }
+        this.productQuantity = Math.max(productQuantity, 0);
     }
 }

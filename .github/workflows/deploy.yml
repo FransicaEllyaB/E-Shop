@@ -26,4 +26,4 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.KOYEB_API_TOKEN }}"
 
       - name: Done!
-        run: echo "Deployment to Koyeb completed successfully.
+        run: echo "Deployment to Koyeb completed successfully."

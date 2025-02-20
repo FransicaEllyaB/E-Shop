@@ -15,18 +15,6 @@ public class Product {
         this.productId = UUID.randomUUID().toString();
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public int getProductQuantity() {
-        return productQuantity;
-    }
-
     public void setProductQuantity(int productQuantity) {
         this.productQuantity = Math.max(productQuantity, 0);
     }

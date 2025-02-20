@@ -133,3 +133,19 @@ Membuat kelas Java baru untuk memverifikasi jumlah item dalam daftar produk deng
 3. Gunakan Pengujian Parameterized (Parameterized Tests)
 4. Gunakan Page Object Model (POM) untuk Struktur Pengujian yang Lebih Baik
 </details>
+
+## Module 2
+<details>
+<summary>Reflection 1</summary>
+1. List the code quality issue(s) that you fixed during the exercise and explain your strategy 
+on fixing them. <br>
+   <br> - Menghapus modifier public di `ProductService.java` karena berupa interface
+   <br> - Menghapus import yang tidak digunakan
+   <br> - Menghapus Code Duplication
+   <br> - Meningkatkan test coverage dengan skenario yang lebih lengkap
+
+2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current 
+implementation has met the definition of Continuous Integration and Continuous 
+Deployment? Explain the reasons (minimum 3 sentences)! <br><br>
+Continuous Integration merupakan penggabungan perubahan kode dari berbagai pengembang ke dalam satu proyek perangkat lunak secara otomatis, seperti pada project ini, saya menggunakan `scorecard.yml`, `ci.yml`, dan `cmd.yml` di file `.github\workflows`. Setiap commit akan memicu untuk menjalankan test suite dan menganalisis isu keamanan. Continuous Deployment adalah pengembangan perangkat lunak yang mengotomatisasi proses pengujian dan pengiriman perangkat lunak ke pengguna. Continuous Deployment (CD) adalah praktik pengembangan perangkat lunak yang mengotomatisasi proses deployement ke suatu server tertentu. Implementasi yang telah dilakukan adalah pembuatan script `deploy.yml` sehingga aplikasi akan otomatis deploy setiap kali push ke branch master. 
+</details>

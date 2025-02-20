@@ -33,6 +33,7 @@ jobs:
         id: pmd
         uses: pmd/pmd-github-action@v2
         with:
+          version: 7.0.0-rc4
           rulesets: 'rulesets/java/quickstart.xml'
           sourcePath: 'src/main/java'
           analyzeModifiedFilesOnly: false

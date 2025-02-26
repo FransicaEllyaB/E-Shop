@@ -150,3 +150,32 @@ implementation has met the definition of Continuous Integration and Continuous
 Deployment? Explain the reasons (minimum 3 sentences)! <br><br>
 Continuous Integration merupakan penggabungan perubahan kode dari berbagai pengembang ke dalam satu proyek perangkat lunak secara otomatis, seperti pada project ini, saya menggunakan `scorecard.yml`, `ci.yml`, dan `cmd.yml` di file `.github\workflows`. Setiap commit akan memicu untuk menjalankan test suite dan menganalisis isu keamanan. Continuous Deployment adalah pengembangan perangkat lunak yang mengotomatisasi proses pengujian dan pengiriman perangkat lunak ke pengguna. Continuous Deployment (CD) adalah praktik pengembangan perangkat lunak yang mengotomatisasi proses deployement ke suatu server tertentu. Implementasi yang telah dilakukan adalah pembuatan script `deploy.yml` sehingga aplikasi akan otomatis deploy setiap kali push ke branch master. 
 </details>
+
+## Module 3
+<details>
+<summary>Reflection</summary>
+
+>1) Explain what principles you apply to your project!
+* Single Responsibility Principle (SRP)
+Saya mengimplementasikan SRP dengan memisahkan tanggung jawab antara class `ProductController` dengan `CarController` sehingga setiap class hanya berinteraksi dengan satu model. 
+* Open-Closed Principle (OCP)
+Untuk menghindari modifikasi kode lama, saya menggunakan ekstensi dari Model `Product` dan `Car` untuk menambahkan fungsionalitas baru.
+* Liskov Substitution Principle (LSP)
+Saya sudah menerapkan prinsip LSP pada `ProductService` dengan `ProductServiceImpl` atau `CarService` dengan `CarServiceImpl`. Dengan ini, subclass `ProductServiceImpl` dapat menggantikan superclass `ProductService` begitu juga dengan `CarService` dan `CarServiceImpl`
+* Interface Segregation Principle (ISP)
+Saya sudah menerapkan princip ISP dengan memisahkan Interface di `CarService` dan `ProductService` sehingga class `ProductServiceImpl` dan `CarServiceImpl` dapat mengimplementasikan interface yang diperlukan saja.
+* Depedency Inversion Principle (DIP)
+Saya menerapkan prinsip DIP dengan mendeklarasikan `ProductService` sebagai dependency dalam ProductController, bukan menggunakan implementasi konkretnya (ProductServiceImpl). Dependency injection memastikan ProductController tidak bergantung langsung pada implementasi spesifik sehingga memudahkan penggantian atau pengujian dengan mock.
+
+>2) Explain the advantages of applying SOLID principles to your project with examples.
+* Kode lebih mudah dipahami dan dirawatkarena setiap class hanya memiliki satu tanggung jawab utama. Contoh pemisahan tanggung jawab antara class `ProductController` dengan `CarController`.
+* Memudahkan penambahan fitur baru sehingga tidak perlu mengubah kode lama cukup menambahkan ekstensi. Contoh model `Product` dan `Car` yang dapat diextensi seperti di `ProductRepository` dan `CarRepository`
+* Memastikan subclass bisa digunakan tanpa mengubah program sehingga subclass harus bisa menggantikan superclass tanpa mengubah perilaku program. Contoh subclass `ProductServiceImpl` dapat menggantikan superclass `ProductService`.
+* Kode tidak terlalu berat dan mudah digunakan. Contoh pemisahan interface di `CarService` dan `ProductService`.
+* Memudahkan testing dan menghindari ketergantungan yang kuat. Jika ProductController langsung menggunakan ProductServiceImpl, maka sulit untuk mengganti implementasi atau melakukan unit testing. Dengan DIP, kita gunakan interface ProductService sehingga kita bisa mengganti implementasinya dengan mudah.
+
+>3) Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+Jika dalam project ini, saya tidak mengimplementasikan SOLID principles. Maka, sulit untuk untuk memantain kode dan menambahkan fitur baru, rentan terhadap bug yang tidak terduga, class harus mengimplementasikan metode yang tidak diperlukan, dan sulit untuk melakukan testing. Jika satu class memiliki terlalu banyak tanggung jawab, setiap perubahan kecil dapat menyebabkan efek samping yang tidak terduga. Contoh jika `ProductController` dan `CarController` masih dalam satu file. Terdapat pewarisan atribut atau method yang tidak diperkukan. Selain itu, perubahan pada suatu method dapat berpengaruh terhadap method di class lain.
+
+</details>

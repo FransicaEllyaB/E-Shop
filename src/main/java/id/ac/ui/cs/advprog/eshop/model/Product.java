@@ -6,16 +6,15 @@ import java.util.UUID;
 
 @Getter @Setter
 public class Product {
-    private static int counter;
-    private String productId;
-    private String productName;
-    private int productQuantity;
+    private String id;
+    private String name;
+    private int quantity;
 
     public Product() {
-        this.productId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
     }
 
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = Math.max(productQuantity, 0);
+    public void setQuantity(int quantity) {
+        this.quantity = Math.max(quantity, 0);
     }
 }

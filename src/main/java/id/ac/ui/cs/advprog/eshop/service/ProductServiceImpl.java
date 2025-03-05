@@ -33,11 +33,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(String productId) {
+    public Product findById(String id) {
         Iterator<Product> productIterator = productRepository.findAll();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
-            if (product.getProductId().equals(productId)) {
+            if (product.getId().equals(id)) {
                 return product;
             }
         }
@@ -45,8 +45,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(String productId) {
-        Product product = findById(productId);
+    public void deleteById(String id) {
+        Product product = findById(id);
         if (product == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product edit(Product product) {
-        Product editedProduct = findById(product.getProductId());
+        Product editedProduct = findById(product.getId());
         if (editedProduct == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
@@ -65,13 +65,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public void validateProduct(Product product) {
-        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+        if (product.getName() == null || product.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be empty.");
         }
-        else if (product.getProductName().length() < 3 || product.getProductName().length() > 50) {
+        else if (product.getName().length() < 3 || product.getName().length() > 50) {
             throw new IllegalArgumentException("Product name must be between 3 and 50 characters.");
         }
-        else if (product.getProductQuantity() < 1) {
+        else if (product.getQuantity() < 1) {
             throw new IllegalArgumentException("Quantity must be at least 1.");
         }
     }

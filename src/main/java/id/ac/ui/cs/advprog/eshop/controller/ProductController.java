@@ -57,9 +57,9 @@ public class ProductController {
     /**
      * Fungsi ini memanggil halaman edit product dengan metode get
      */
-    @GetMapping("/edit/{productId}")
-    public String editProductPage(Model model, @PathVariable String productId) {
-        Product product = service.findById(productId);
+    @GetMapping("/edit/{id}")
+    public String editProductPage(Model model, @PathVariable String id) {
+        Product product = service.findById(id);
         if (product == null) {
             return "redirect:/product/list";
         }
@@ -70,7 +70,7 @@ public class ProductController {
     /**
      * Fungsi ini untuk mengedit product dengan metode post
      */
-    @PostMapping("/edit/{productId}")
+    @PostMapping("/edit/{id}")
     public String editProductPost(@ModelAttribute Product product, Model model) {
         try {
             service.edit(product);
@@ -84,22 +84,22 @@ public class ProductController {
     /**
      * Fungsi ini memanggil halaman delete product dengan metode get
      */
-    @GetMapping("/delete/{productId}")
-    public String deleteProductPage(Model model, @PathVariable String productId) {
-        Product product = service.findById(productId);
-        model.addAttribute("productId", product.getProductId());
-        model.addAttribute("productName", product.getProductName());
-        model.addAttribute("productQuantity", product.getProductQuantity());
+    @GetMapping("/delete/{id}")
+    public String deleteProductPage(Model model, @PathVariable String id) {
+        Product product = service.findById(id);
+        model.addAttribute("id", product.getId());
+        model.addAttribute("name", product.getName());
+        model.addAttribute("quantity", product.getQuantity());
         return "deleteProduct";
     }
 
     /**
      * Fungsi ini untuk menghapus product dengan metode post
      */
-    @PostMapping("/delete/{productId}")
-    public String deleteProductPost(@PathVariable String productId, RedirectAttributes redirectAttributes) {
+    @PostMapping("/delete/{id}")
+    public String deleteProductPost(@PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
-            service.deleteById(productId);
+            service.deleteById(id);
             redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully.");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Product not found.");

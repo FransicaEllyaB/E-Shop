@@ -33,24 +33,24 @@ class ProductServiceImplTest {
     @Test
     void testCreate(){
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         when(productRepository.create(any(Product.class))).thenReturn(product);
 
         Product savedProduct = productService.create(product);
 
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertEquals(product.getId(), savedProduct.getId());
+        assertEquals(product.getName(), savedProduct.getName());
+        assertEquals(product.getQuantity(), savedProduct.getQuantity());
     }
 
     @Test
     void testFindAll() {
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         Product product2 = new Product();
-        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product2.setId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
         when(productRepository.findAll()).thenReturn(Arrays.asList(product1, product2).iterator());
 
         List<Product> allProducts = productService.findAll();
@@ -60,67 +60,67 @@ class ProductServiceImplTest {
 
     @Test
     void testFindByIdWhenProductExists() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
-        Product foundProduct = productService.findById(productId);
+        Product foundProduct = productService.findById(id);
 
         assertNotNull(foundProduct);
-        assertEquals(product.getProductId(), foundProduct.getProductId());
+        assertEquals(product.getId(), foundProduct.getId());
     }
 
     @Test
     void testFindByIdWhenProductDoesNotExist() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
-        String nonExistingProductId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String nonExistingId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
 
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
-        Product foundProduct = productService.findById(nonExistingProductId);
+        Product foundProduct = productService.findById(nonExistingId);
 
         assertNull(foundProduct);
     }
 
     @Test
     void testDeleteByIdWhenProductExists() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
-        productService.deleteById(productId);
+        productService.deleteById(id);
 
         verify(productRepository, times(1)).delete(product);
     }
 
     @Test
     void testDeleteById_WhenProductDoesNotExist() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
-        String nonExistingProductId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String nonExistingId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
-        assertThrows(ResponseStatusException.class, () -> productService.deleteById(nonExistingProductId));
+        assertThrows(ResponseStatusException.class, () -> productService.deleteById(nonExistingId));
     }
 
     @Test
     void testEditWhenProductExists() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId(id);
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         Product editedProduct = new Product();
-        editedProduct.setProductId(productId);
-        editedProduct.setProductName("Sampo Cap Bango");
-        editedProduct.setProductQuantity(50);
+        editedProduct.setId(id);
+        editedProduct.setName("Sampo Cap Bango");
+        editedProduct.setQuantity(50);
         productService.edit(editedProduct);
 
         verify(productRepository, times(1)).edit(editedProduct);
@@ -128,18 +128,18 @@ class ProductServiceImplTest {
 
     @Test
     void testEditWhenProductDoesNotExist() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
-        String nonExistingProductId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String nonExistingId = "-eb558e9f-1c39-460e-8860-71af6af63bd6";
 
         Product product = new Product();
-        product.setProductId(productId);
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId(id);
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
 
         Product editedProduct = new Product();
-        editedProduct.setProductId(nonExistingProductId);
-        editedProduct.setProductName("Sampo Cap Bango");
-        editedProduct.setProductQuantity(50);
+        editedProduct.setId(nonExistingId);
+        editedProduct.setName("Sampo Cap Bango");
+        editedProduct.setQuantity(50);
 
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
@@ -149,8 +149,8 @@ class ProductServiceImplTest {
     @Test
     void testCreateWhenInvalidProduct() {
         Product invalidProduct = new Product();
-        invalidProduct.setProductName(""); // Invalid product name
-        invalidProduct.setProductQuantity(0); // Invalid quantity
+        invalidProduct.setName(""); // Invalid product name
+        invalidProduct.setQuantity(0); // Invalid quantity
 
         assertThrows(IllegalArgumentException.class, () -> productService.create(invalidProduct));
     }
@@ -158,8 +158,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductValidProduct() {
         Product product = new Product();
-        product.setProductName("Valid Product");
-        product.setProductQuantity(10);
+        product.setName("Valid Product");
+        product.setQuantity(10);
 
         assertDoesNotThrow(() -> productService.validateProduct(product));
     }
@@ -167,8 +167,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductEmptyName() {
         Product product = new Product();
-        product.setProductName("");
-        product.setProductQuantity(10);
+        product.setName("");
+        product.setQuantity(10);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
         assertTrue(exception.getMessage().contains("Product name cannot be empty"));
@@ -177,8 +177,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductNullName() {
         Product product = new Product();
-        product.setProductName(null);
-        product.setProductQuantity(10);
+        product.setName(null);
+        product.setQuantity(10);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
         assertTrue(exception.getMessage().contains("Product name cannot be empty"));
@@ -187,8 +187,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductProductNameTooShort() {
         Product product = new Product();
-        product.setProductName("AB");
-        product.setProductQuantity(10);
+        product.setName("AB");
+        product.setQuantity(10);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
         assertTrue(exception.getMessage().contains("Product name must be between 3 and 50 characters"));
@@ -197,8 +197,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductProductNameTooLong() {
         Product product = new Product();
-        product.setProductName("A".repeat(51));
-        product.setProductQuantity(10);
+        product.setName("A".repeat(51));
+        product.setQuantity(10);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
         assertTrue(exception.getMessage().contains("Product name must be between 3 and 50 characters"));
@@ -207,8 +207,8 @@ class ProductServiceImplTest {
     @Test
     void testValidateProductNegativeQuantity() {
         Product product = new Product();
-        product.setProductName("Valid Name");
-        product.setProductQuantity(0);
+        product.setName("Valid Name");
+        product.setQuantity(0);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> productService.validateProduct(product));
         assertTrue(exception.getMessage().contains("Quantity must be at least 1"));

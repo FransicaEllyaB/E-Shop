@@ -115,7 +115,7 @@ class PaymentRepositoryTest {
         for (Payment payment : payments) {
             paymentRepository.save(payment);
         }
-        List<Payment> paymentList = paymentRepository.findAllByVoucher();
+        List<Payment> paymentList = paymentRepository.findAllByPaymentMethod(PaymentMethod.VOUCHER_CODE.getValue());
         assertEquals(1, paymentList.size());
     }
 
@@ -124,8 +124,17 @@ class PaymentRepositoryTest {
         for (Payment payment : payments) {
             paymentRepository.save(payment);
         }
-        List<Payment> paymentList = paymentRepository.findAllByBankTransfer();
+        List<Payment> paymentList = paymentRepository.findAllByPaymentMethod(PaymentMethod.BANK_TRANSFER.getValue());
         assertEquals(1, paymentList.size());
+    }
+
+    @Test
+    void testFindAllByNotMethodBankTransfer() {
+        for (Payment payment : payments) {
+            paymentRepository.save(payment);
+        }
+        List<Payment> paymentList = paymentRepository.findAllByPaymentMethod("COD");
+        assertTrue(paymentList.isEmpty());
     }
 
     @Test

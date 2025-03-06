@@ -27,16 +27,20 @@ public class PaymentRepository {
         return new ArrayList<>(idPaymentData.values());
     }
 
-    public List<Payment> findAllByVoucher() {
-        return idPaymentData.values().stream()
-                .filter(payment -> PaymentMethod.VOUCHER_CODE.getValue().equals(payment.getSubNameMethod()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Payment> findAllByBankTransfer(){
-        return idPaymentData.values().stream()
-                .filter(payment -> PaymentMethod.BANK_TRANSFER.getValue().equals(payment.getSubNameMethod()))
-                .collect(Collectors.toList());
+    public List<Payment> findAllByPaymentMethod(String subNameMethod) {
+        List<Payment> result = new ArrayList<>();
+        if (PaymentMethod.contains(subNameMethod)) {
+            if (subNameMethod.equals(PaymentMethod.VOUCHER_CODE.getValue())) {
+                result = idPaymentData.values().stream()
+                        .filter(payment -> PaymentMethod.VOUCHER_CODE.getValue().equals(payment.getSubNameMethod()))
+                        .collect(Collectors.toList());
+            } else {
+                result = idPaymentData.values().stream()
+                        .filter(payment -> PaymentMethod.BANK_TRANSFER.getValue().equals(payment.getSubNameMethod()))
+                        .collect(Collectors.toList());
+            }
+        }
+        return result;
     }
 
     public void delete(String id) {

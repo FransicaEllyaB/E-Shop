@@ -80,7 +80,6 @@ class PaymentRepositoryTest {
         Payment findResult = paymentRepository.findById(payments.get(1).getId());
 
         assertEquals(result.getId(), findResult.getId());
-        assertEquals(result.getId(), findResult.getId());
         assertEquals(result.getStatus(), findResult.getStatus());
         assertEquals(result.getSubNameMethod(), findResult.getSubNameMethod());
         assertEquals(payments.getFirst().getPaymentData(), findResult.getPaymentData());
@@ -135,5 +134,22 @@ class PaymentRepositoryTest {
         }
         List<Payment> paymentList = paymentRepository.findAll();
         assertEquals(2, paymentList.size());
+    }
+
+    @Test
+    void testDeleteExistingPayment() {
+        for (Payment payment : payments) {
+            paymentRepository.save(payment);
+        }
+        assertNotNull(paymentRepository.findById("6c93d3e2-b009-46ba-9d15-f03d85adc2d2"));
+        paymentRepository.delete("6c93d3e2-b009-46ba-9d15-f03d85adc2d2");
+        assertNull(paymentRepository.findById("6c93d3e2-b009-46ba-9d15-f03d85adc2d26"));
+    }
+
+    @Test
+    void testDeleteNonExistingPayment() {
+        assertNull(paymentRepository.findById("b558e9f-1c39-460e-8860-71af6af63bd6"));
+        paymentRepository.delete("b558e9f-1c39-460e-8860-71af6af63bd6");
+        assertNull(paymentRepository.findById("b558e9f-1c39-460e-8860-71af6af63bd6"));
     }
 }

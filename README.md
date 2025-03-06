@@ -179,3 +179,28 @@ Saya menerapkan prinsip DIP dengan mendeklarasikan `ProductService` sebagai depe
 Jika dalam project ini, saya tidak mengimplementasikan SOLID principles. Maka, sulit untuk untuk memantain kode dan menambahkan fitur baru, rentan terhadap bug yang tidak terduga, class harus mengimplementasikan metode yang tidak diperlukan, dan sulit untuk melakukan testing. Jika satu class memiliki terlalu banyak tanggung jawab, setiap perubahan kecil dapat menyebabkan efek samping yang tidak terduga. Contoh jika `ProductController` dan `CarController` masih dalam satu file. Terdapat pewarisan atribut atau method yang tidak diperkukan. Selain itu, perubahan pada suatu method dapat berpengaruh terhadap method di class lain.
 
 </details>
+
+## Module 4
+<details>
+<summary>Reflection 1</summary>
+
+> Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this
+TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+TDD (Test-Driven Development) berguna karena dapat membantu dalam desain dan pemahaman kode dan meningkatkan fungsionalitas kode sebelum mengimplementasikannya. Dengan menulis tes terlebih dahulu, saya memiliki gambaran yang lebih jelas mengenai bagaimana kode seharusnya berfungsi, sehingga dapat menghindari banyak kesalahan sejak awal. Selain itu, TDD membantu meningkatkan kualitas dan keandalan kode karena setiap perubahan dapat segera diuji untuk memastikan tidak ada fungsionalitas yang rusak. Dalam jangka panjang, TDD juga mempermudah pemeliharaan kode, karena jika ada penambahan fitur di masa depan, tes yang sudah ada dapat digunakan untuk mendeteksi kemungkinan bug atau regresi.
+
+> You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you
+create more tests.
+
+* Fast
+  Tes saya memenuhi prinsip Fast karena unit test berjalan dengan cepat dan dapat dieksekusi berulang kali tanpa memperlambat proses pengembangan. Saya memastikan kecepatan ini dengan menggunakan mocking untuk menghindari ketergantungan pada database.
+* Isolated / Independent 
+Test yang saya buat sudah independent karena jika satu tes gagal, tidak mempengaruhi tes lainnya. Saya menggunakan `setUp` untuk membuat dummy dan `mock` objek sebelum adanya testcase sehingga mengurangi adanya duplikasi.
+* Repeatable
+  Karena sudah memenuhi prinsip Isolated, kode saya juga mematuhi prinsip Repeatable. Setiap kali dijalankan, hasil pengujian akan selalu sama karena tidak bergantung pada faktor eksternal seperti waktu atau koneksi jaringan.
+* Self-Validating
+  Tes saya bersifat Self-Validating, di mana setiap pengujian memiliki assertion yang jelas, memastikan apakah tes lulus atau gagal tanpa memerlukan pemeriksaan manual. Saya juga memastikan bahwa setiap test case hanya mencakup satu skenario untuk memudahkan debugging.
+* Timely
+  Tes saya sudah mencakup happy path dan unhappy path. Saya menulis tes secara paralel dengan implementasi kode sehingga dapat mendukung pengembangan berbasis pengujian (TDD). Hal ini membantu memastikan bahwa fitur yang dikembangkan selalu memiliki cakupan pengujian yang baik sebelum digunakan.
+
+</details>

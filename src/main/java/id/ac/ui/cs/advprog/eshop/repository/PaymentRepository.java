@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import org.springframework.stereotype.Repository;
 
@@ -28,17 +29,19 @@ public class PaymentRepository {
 
     public List<Payment> findAllByVoucher() {
         return idPaymentData.values().stream()
-                .filter(payment -> "VOUCHER".equals(payment.getSubNameMethod()))
+                .filter(payment -> PaymentMethod.VOUCHER_CODE.getValue().equals(payment.getSubNameMethod()))
                 .collect(Collectors.toList());
     }
 
     public List<Payment> findAllByBankTransfer(){
         return idPaymentData.values().stream()
-                .filter(payment -> "BANK_TRANSFER".equals(payment.getSubNameMethod()))
+                .filter(payment -> PaymentMethod.BANK_TRANSFER.getValue().equals(payment.getSubNameMethod()))
                 .collect(Collectors.toList());
     }
 
     public void delete(String id) {
         idPaymentData.remove(id);
     }
+
+
 }

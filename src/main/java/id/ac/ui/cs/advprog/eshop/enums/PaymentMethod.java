@@ -9,7 +9,7 @@ public enum PaymentMethod {
 
     private final String value;
 
-    private PaymentMethod(String value) {
+    PaymentMethod(String value) {
         this.value = value;
     }
 

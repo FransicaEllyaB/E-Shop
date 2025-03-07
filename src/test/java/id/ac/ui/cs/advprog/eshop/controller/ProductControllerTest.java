@@ -37,12 +37,6 @@ public class ProductControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    @Test
-//    void testIndex() {
-//        String result = productController.index();
-//        assertEquals("home", result);
-//    }
-
     @Test
     void testCreateProductPage() {
         String result = productController.createProductPage(model);
@@ -60,8 +54,8 @@ public class ProductControllerTest {
     @Test
     void testCreateProductPostWhenValidationFails() {
         Product invalidProduct = new Product();
-        invalidProduct.setProductName("");
-        invalidProduct.setProductQuantity(0);
+        invalidProduct.setName("");
+        invalidProduct.setQuantity(0);
 
         doThrow(new IllegalArgumentException("Invalid product details."))
                 .when(productService).create(any(Product.class));
@@ -82,36 +76,36 @@ public class ProductControllerTest {
 
     @Test
     void testDeleteProductPage() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
-        when(productService.findById(productId)).thenReturn(product);
-        String result = productController.deleteProductPage(model, productId);
+        product.setId(id);
+        when(productService.findById(id)).thenReturn(product);
+        String result = productController.deleteProductPage(model, id);
         assertEquals("deleteProduct", result);
-        verify(model, times(1)).addAttribute("productId", productId);
-        verify(model, times(1)).addAttribute("productName", product.getProductName());
-        verify(model, times(1)).addAttribute("productQuantity", product.getProductQuantity());
+        verify(model, times(1)).addAttribute("id", id);
+        verify(model, times(1)).addAttribute("name", product.getName());
+        verify(model, times(1)).addAttribute("quantity", product.getQuantity());
     }
 
     @Test
     void testDeleteProductPost() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
 
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
-        String result = productController.deleteProductPost(productId, redirectAttributes);
+        String result = productController.deleteProductPost(id, redirectAttributes);
 
         assertEquals("redirect:/product/list", result);
-        verify(productService, times(1)).deleteById(productId);
+        verify(productService, times(1)).deleteById(id);
     }
 
     @Test
     void testDeleteProductPostWhenProductNotFound() {
-        String productId = "invalid-id";
+        String id = "invalid-id";
         doThrow(new IllegalArgumentException("Product not found."))
-                .when(productService).deleteById(productId);
+                .when(productService).deleteById(id);
 
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
-        String result = productController.deleteProductPost(productId, redirectAttributes);
+        String result = productController.deleteProductPost(id, redirectAttributes);
 
         assertEquals("redirect:/product/list", result);
         assertTrue(redirectAttributes.getFlashAttributes().containsKey("errorMessage"));
@@ -120,21 +114,21 @@ public class ProductControllerTest {
 
     @Test
     void testEditProductPage() {
-        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        String id = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
-        product.setProductId(productId);
-        when(productService.findById(productId)).thenReturn(product);
-        String result = productController.editProductPage(model, productId);
+        product.setId(id);
+        when(productService.findById(id)).thenReturn(product);
+        String result = productController.editProductPage(model, id);
         assertEquals("editProduct", result);
         verify(model, times(1)).addAttribute("product", product);
     }
 
     @Test
     void testEditProductPageWhenProductNotFound() {
-        String productId = "invalid-id";
-        when(productService.findById(productId)).thenReturn(null);
+        String id = "invalid-id";
+        when(productService.findById(id)).thenReturn(null);
 
-        String result = productController.editProductPage(model, productId);
+        String result = productController.editProductPage(model, id);
 
         assertEquals("redirect:/product/list", result);
     }
@@ -144,7 +138,7 @@ public class ProductControllerTest {
     @Test
     void testEditProductPost() {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
 
         Model model = mock(Model.class);
 
@@ -157,7 +151,7 @@ public class ProductControllerTest {
     @Test
     void testEditProductPostWhenValidationFails() {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         Model model = mock(Model.class);
         doThrow(new IllegalArgumentException("Product name cannot be empty."))
                 .when(productService).edit(any(Product.class));

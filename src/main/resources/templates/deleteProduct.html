@@ -24,10 +24,10 @@
 
         <h3 class="text-danger">Delete Product</h3>
 
-        <p class="lead">Are you sure you want to delete <strong th:text="${productName}"></strong>?</p>
+        <p class="lead">Are you sure you want to delete <strong th:text="${name}"></strong>?</p>
 
         <a th:href="@{/product/list}" class="btn btn-secondary">Cancel</a>
-        <form th:action="@{/product/delete/{productId} (productId=${productId})}" method="post" style="display: inline;">
+        <form th:action="@{/product/delete/{id} (id=${id})}" method="post" style="display: inline;">
             <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
         </form>
     </div>

@@ -10,48 +10,48 @@ class ProductTest {
     @BeforeEach
     void setUp() {
         this.product = new Product();
-        this.product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        this.product.setProductName("Sampo Cap Bambang");
-        this.product.setProductQuantity(100);
+        this.product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        this.product.setName("Sampo Cap Bambang");
+        this.product.setQuantity(100);
     }
 
     @Test
-    void testGetProductId() {
-        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.product.getProductId());
+    void testGetId() {
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.product.getId());
     }
 
     @Test
-    void testGetProductName() {
-        assertEquals("Sampo Cap Bambang", this.product.getProductName());
+    void testGetName() {
+        assertEquals("Sampo Cap Bambang", this.product.getName());
     }
 
     @Test
-    void testGetProductQuantity() {
-        assertEquals(100, this.product.getProductQuantity());
+    void testGetQuantity() {
+        assertEquals(100, this.product.getQuantity());
     }
 
     // Negative Test Cases
     @Test
-    void testSetInvalidProductId() {
-        product.setProductId(null);
-        assertNull(product.getProductId());
+    void testSetInvalidId() {
+        product.setId(null);
+        assertNull(product.getId());
 
-        product.setProductId("");
-        assertEquals("", product.getProductId());
+        product.setId("");
+        assertEquals("", product.getId());
     }
 
     @Test
-    void testSetInvalidProductName() {
-        product.setProductName(null);
-        assertNull(product.getProductName());
+    void testSetInvalidName() {
+        product.setName(null);
+        assertNull(product.getName());
 
-        product.setProductName("");
-        assertEquals("", product.getProductName());
+        product.setName("");
+        assertEquals("", product.getName());
     }
 
     @Test
-    void testSetNegativeProductQuantity() {
-        product.setProductQuantity(-10);
-        assertTrue(product.getProductQuantity() >= 0);
+    void testSetNegativeQuantity() {
+        product.setQuantity(-10);
+        assertTrue(product.getQuantity() >= 0);
     }
 }

@@ -192,15 +192,15 @@ TDD (Test-Driven Development) berguna karena dapat membantu dalam desain dan pem
 > You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you
 create more tests.
 
-* Fast
-  Tes saya memenuhi prinsip Fast karena unit test berjalan dengan cepat dan dapat dieksekusi berulang kali tanpa memperlambat proses pengembangan. Saya memastikan kecepatan ini dengan menggunakan mocking untuk menghindari ketergantungan pada database.
-* Isolated / Independent 
+* Fast <br>
+  Test saya memenuhi prinsip Fast karena unit test berjalan dengan cepat dan dapat dieksekusi berulang kali tanpa memperlambat proses pengembangan. Saya memastikan kecepatan ini dengan menggunakan mocking untuk menghindari ketergantungan pada database.
+* Isolated / Independent <br>
 Test yang saya buat sudah independent karena jika satu tes gagal, tidak mempengaruhi tes lainnya. Saya menggunakan `setUp` untuk membuat dummy dan `mock` objek sebelum adanya testcase sehingga mengurangi adanya duplikasi.
-* Repeatable
+* Repeatable <br>
   Karena sudah memenuhi prinsip Isolated, kode saya juga mematuhi prinsip Repeatable. Setiap kali dijalankan, hasil pengujian akan selalu sama karena tidak bergantung pada faktor eksternal seperti waktu atau koneksi jaringan.
-* Self-Validating
-  Tes saya bersifat Self-Validating, di mana setiap pengujian memiliki assertion yang jelas, memastikan apakah tes lulus atau gagal tanpa memerlukan pemeriksaan manual. Saya juga memastikan bahwa setiap test case hanya mencakup satu skenario untuk memudahkan debugging.
-* Timely
-  Tes saya sudah mencakup happy path dan unhappy path. Saya menulis tes secara paralel dengan implementasi kode sehingga dapat mendukung pengembangan berbasis pengujian (TDD). Hal ini membantu memastikan bahwa fitur yang dikembangkan selalu memiliki cakupan pengujian yang baik sebelum digunakan.
+* Self-Validating <br>
+  Test saya bersifat Self-Validating, di mana setiap pengujian memiliki assertion yang jelas, memastikan apakah tes lulus atau gagal tanpa memerlukan pemeriksaan manual. Saya juga memastikan bahwa setiap test case hanya mencakup satu skenario untuk memudahkan debugging.
+* Timely <br>
+  Test saya sudah mencakup happy path dan unhappy path. Saya menulis tes secara paralel dengan implementasi kode sehingga dapat mendukung pengembangan berbasis pengujian (TDD). Hal ini membantu memastikan bahwa fitur yang dikembangkan selalu memiliki cakupan pengujian yang baik sebelum digunakan.
 
 </details>
